@@ -1,0 +1,1618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost &amp; Found</title>
+  <link rel="stylesheet" href="styles.css?v=15">
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <div class="shell">
+    <header>
+      <div class="brand"><span class="brand-mark">↗</span> Lost &amp; Found</div>
+      <nav><a href="#how">How it works</a><a href="#support">Support</a></nav>
+      <div class="auth-actions" id="auth-actions">
+        <button class="btn-login" type="button" id="open-login">Log in</button>
+        <button class="account-link" type="button" id="open-account">Create account</button>
+      </div>
+      <div class="profile" id="user-profile" style="display: none;">
+        <div class="profile-badge-btn" id="open-profile-btn" title="Click to view your lost and found product activity">
+          <div class="avatar" id="avatar-initials">U</div>
+          <div class="profile-info-block">
+            <span class="profile-name" id="user-display-name">User</span>
+            <div class="profile-stats-summary" id="profile-stats-summary">
+              <span class="stat-tag lost-tag" id="stat-lost-count">0 Lost</span>
+              <span class="stat-tag found-tag" id="stat-found-count">0 Found</span>
+            </div>
+          </div>
+        </div>
+        <button class="logout-link" type="button" id="logout-btn">Log out</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" style="background: transparent !important; box-shadow: none !important; border: none !important;">
+        <div>
+          <div class="eyebrow">One place. Better chances.</div>
+          <h1>Good things find their way back.</h1>
+          <p class="hero-copy">A simple, trusted board for returning lost belongings across your workplace or campus. Post in a minute, search with confidence, and close the loop.</p>
+          <div class="search-section hero-search"><h3>Search for an item</h3><p>Look for a lost or found item by name, place, or category. <span class="search-ml-pill">🤖 ML Cosine Similarity Search</span></p><form class="search-form" id="search-form"><input id="search-item" placeholder="e.g. phone, keys, earbuds..."><select id="search-type" aria-label="Search type"><option value="all">All items</option><option value="lost">Lost items</option><option value="found">Found items</option></select><button type="submit">Search</button></form></div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="how-section" id="how">
+        <div class="section-title-wrap">
+          <span class="sub-badge">Simple 3-Step Process</span>
+          <h2>How It Works</h2>
+          <p>Returning lost belongings or finding what you misplaced is effortless, intelligent, and safe.</p>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-icon">📝</div>
+            <h3>Report in Seconds</h3>
+            <p>Post your lost or found product with details, place, and date in just a few clicks.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-icon">🤖</div>
+            <h3>ML Cosine Matching</h3>
+            <p>Our intelligent TF-IDF &amp; Cosine Similarity algorithm ranks the closest semantic matches instantly.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-icon">💬</div>
+            <h3>Live Chat &amp; Voice Call</h3>
+            <p>Safely message or place an audio call with the finder to coordinate a secure handover on campus.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Registered Items Dashboard -->
+      <section class="dashboard" id="board" style="background: transparent !important; box-shadow: none !important; border: none !important;">
+        <div class="board-content">
+          <div class="content-top"><div><h2>Report an item</h2><p>Choose a report type to get started.</p></div></div>
+          <div class="simple-actions"><button class="btn btn-primary" data-open="lost">I lost something</button><button class="btn btn-secondary" data-open="found">I found something</button></div>
+          
+          <div class="items-section">
+            <div class="items-header">
+              <h3>Registered Items Board</h3>
+              <div class="filter-tabs">
+                <button type="button" class="filter-btn active" data-filter="all">All</button>
+                <button type="button" class="filter-btn" data-filter="lost">Lost</button>
+                <button type="button" class="filter-btn" data-filter="found">Found</button>
+              </div>
+            </div>
+            <div class="items-grid" id="items-grid">
+              <!-- Dynamically populated from stored items -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Support & FAQ Section -->
+      <section class="support-section" id="support">
+        <div class="section-title-wrap">
+          <span class="sub-badge">Help &amp; Safety</span>
+          <h2>Support &amp; Frequently Asked Questions</h2>
+          <p>Everything you need to know about safety, reporting, and recovering your belongings.</p>
+        </div>
+        <div class="faq-grid">
+          <details class="faq-item" open>
+            <summary class="faq-question">
+              <span>🤖 How does the ML Cosine Similarity Search work?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              Our search engine utilizes Machine Learning TF-IDF (Term Frequency - Inverse Document Frequency) vectorization and Cosine Similarity. When you enter a keyword or partial search term, it computes the vector angle against registered items and ranks the highest-percentage matches with visual match badges.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>🔒 Is my personal phone number or contact info exposed?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              No. All communication is held directly inside the platform through the integrated Live Chat and Voice Call tools. You never have to publish private phone numbers or personal emails.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>📊 Where can I check how many products I lost or found?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              Check right next to your profile avatar in the header! You can see your live <strong>0 Lost · 0 Found</strong> counters. Clicking your profile badge opens your full activity history with options to review or delete resolved reports.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>🛡️ Safe handover guidelines?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              Always arrange item handovers in busy, well-lit public campus or workplace areas (reception, library foyer, cafeteria). Ask the owner to verify identifying details before handing the item over.
+            </div>
+          </details>
+        </div>
+        <div class="support-contact-box">
+          <div class="contact-box-left">
+            <span style="font-size: 28px;">🎧</span>
+            <div>
+              <h4>Need direct assistance from Campus Security or Helpdesk?</h4>
+              <p>Campus Security and Lost &amp; Found Helpdesk support is available 24/7.</p>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary" id="btn-contact-support">Contact Campus Helpdesk</button>
+        </div>
+      </section>
+
+      <!-- App Footer -->
+      <footer class="app-footer">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="brand"><span class="brand-mark">🗂️</span> Lost &amp; Found</div>
+            <p>A smart, ML-powered community platform connecting people with their misplaced belongings across campus and workplace environments.</p>
+          </div>
+          <div class="footer-links-col">
+            <h4>Quick Links</h4>
+            <a href="#how">How It Works</a>
+            <a href="#board">Browse Items Board</a>
+            <a href="#support">Support &amp; FAQ</a>
+          </div>
+          <div class="footer-links-col">
+            <h4>Actions</h4>
+            <a href="javascript:void(0)" class="footer-open-lost">Report Lost Item</a>
+            <a href="javascript:void(0)" class="footer-open-found">Report Found Item</a>
+            <a href="javascript:void(0)" class="footer-open-profile">My Activity Dashboard</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Lost &amp; Found Hub · AI-Assisted Smart Recovery · All rights reserved.</p>
+          <div class="footer-badge">✨ Fully Responsive &amp; ML Enhanced</div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modal">
+    <form class="modal" id="report-form">
+      <div class="modal-head"><div><h2 id="modal-title">Report a lost item</h2><p id="modal-subtitle">Enter the details below to submit a report.</p></div><button type="button" class="close" aria-label="Close">×</button></div>
+      <div class="form-grid">
+        <div class="field"><label for="item-name">What is it?</label><input id="item-name" required placeholder="e.g. black water bottle"></div>
+        <div class="field"><label for="item-category">Category</label><select id="item-category"><option>Electronic</option><option>Personal</option><option>Cards &amp; keys</option><option>Bags</option><option>Other</option></select></div>
+        <div class="field full other-details" id="other-details"><label for="other-item">What type of item is it?</label><input id="other-item" placeholder="e.g. glasses, umbrella, jacket"></div>
+        <div class="field"><label for="item-place" id="label-place">Where?</label><input id="item-place" required placeholder="e.g. cafeteria, 2nd floor"></div>
+        <div class="field"><label for="item-date" id="label-date">When?</label><input id="item-date" type="date" required></div>
+        <div class="field full"><label for="item-details">A few identifying details</label><textarea id="item-details" placeholder="Color, brand, stickers, initials..."></textarea></div>
+      </div>
+      <div class="form-footer"><button type="button" class="btn" id="cancel">Cancel</button><button class="btn btn-primary" type="submit" id="submit-report-btn">Publish report</button></div>
+    </form>
+  </div>
+  <div class="modal-backdrop" id="account-modal">
+    <form class="modal" id="account-form">
+      <div class="modal-head"><div><h2>Create an account</h2><p>Set up your account to use Lost &amp; Found.</p></div><button type="button" class="close account-close" aria-label="Close">×</button></div>
+      <div class="form-grid">
+        <div class="field"><label for="full-name">Full name</label><input id="full-name" required placeholder="Your name"></div>
+        <div class="field"><label for="account-email">Email address</label><input id="account-email" type="email" required placeholder="you@example.com"></div>
+        <div class="field"><label for="user-id">User ID</label><input id="user-id" required minlength="3" placeholder="Choose a user ID"></div>
+        <div class="field"><label for="account-type">Account type</label><select id="account-type"><option>College student</option><option>Corporate employee</option></select></div>
+        <div class="field"><label for="password">Password</label><input id="password" type="password" required minlength="4" placeholder="At least 4 characters"></div>
+        <div class="field"><label for="confirm-password">Confirm password</label><input id="confirm-password" type="password" required minlength="4" placeholder="Repeat password"></div>
+        <label class="checkbox-field full"><input id="terms" type="checkbox" checked required> I agree to use this service responsibly.</label>
+        <div class="field full auth-switch"><span>Already have an account? <a href="#" id="switch-to-login">Log in here</a></span></div>
+      </div>
+      <div class="form-footer"><button type="button" class="btn" id="account-cancel">Cancel</button><button class="btn btn-primary" type="submit" id="create-account-btn">Create account</button></div>
+    </form>
+  </div>
+  <div class="modal-backdrop" id="login-modal">
+    <form class="modal" id="login-form">
+      <div class="modal-head"><div><h2>Log In</h2><p>Welcome back! Enter your details to continue.</p></div><button type="button" class="close login-close" aria-label="Close">×</button></div>
+      <div class="form-grid">
+        <div class="field full"><label for="login-id">User ID or Email</label><input id="login-id" required placeholder="Enter your User ID or Email"></div>
+        <div class="field full"><label for="login-password">Password</label><input id="login-password" type="password" required placeholder="Enter your password"></div>
+        <div class="field full auth-switch"><span>First time here? <a href="#" id="switch-to-signup">Create an account first</a></span></div>
+      </div>
+      <div class="form-footer"><button type="button" class="btn" id="login-cancel">Cancel</button><button class="btn btn-primary" type="submit">Log in</button></div>
+    </form>
+  </div>
+  <div class="modal-backdrop" id="contact-modal">
+    <div class="modal comm-modal">
+      <div class="comm-header">
+        <div class="comm-user-info">
+          <div class="comm-avatar" id="comm-avatar">U</div>
+          <div class="comm-details">
+            <h3 id="comm-user-name">Reporter Name</h3>
+            <p id="comm-item-title">Item: Black Wallet</p>
+          </div>
+        </div>
+        <button type="button" class="close" id="comm-close" aria-label="Close">×</button>
+      </div>
+      <div class="comm-nav-tabs">
+        <button type="button" class="comm-tab-btn active" id="tab-chat-btn">💬 Live Chat</button>
+        <button type="button" class="comm-tab-btn" id="tab-call-btn">📞 Voice Call</button>
+      </div>
+
+      <!-- Live Chat Screen -->
+      <div class="chat-view" id="chat-view">
+        <div class="chat-messages" id="chat-messages">
+          <!-- Messages dynamically loaded here -->
+        </div>
+        <form class="chat-input-bar" id="chat-form">
+          <input id="chat-input" placeholder="Type a message to discuss this item..." autocomplete="off">
+          <button type="submit" class="chat-send-btn">Send</button>
+        </form>
+      </div>
+
+      <!-- Voice Call Screen -->
+      <div class="call-view" id="call-view">
+        <div class="call-avatar-wrap">
+          <div class="call-pulse" id="call-pulse"></div>
+          <div class="call-avatar-big" id="call-avatar-big">U</div>
+        </div>
+        <div class="call-contact-name" id="call-contact-name">Reporter Name</div>
+        <div class="call-status-label" id="call-status-label">Calling...</div>
+        <div class="call-timer" id="call-timer">00:00</div>
+        <div class="call-actions">
+          <button type="button" class="call-btn-circle call-btn-mute" id="call-mute" title="Mute Microphone">🎤</button>
+          <button type="button" class="call-btn-circle call-btn-speaker" id="call-speaker" title="Speaker">🔊</button>
+          <button type="button" class="call-btn-circle call-btn-end" id="call-end" title="End Call">📞</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop" id="user-activity-modal">
+    <div class="modal profile-activity-modal">
+      <div class="comm-header">
+        <div class="comm-user-info">
+          <div class="comm-avatar" id="act-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">U</div>
+          <div class="comm-details">
+            <h3 id="act-user-name">User's Profile</h3>
+            <p>Your Reported Products &amp; Activity</p>
+          </div>
+        </div>
+        <button type="button" class="close" id="act-close" aria-label="Close">×</button>
+      </div>
+
+      <!-- Stats Overview Cards -->
+      <div class="act-stats-row">
+        <div class="act-stat-card">
+          <span class="act-stat-icon">📦</span>
+          <span class="act-stat-number" id="act-total-count">0</span>
+          <span class="act-stat-label">Total Reported</span>
+        </div>
+        <div class="act-stat-card act-stat-lost">
+          <span class="act-stat-icon">🔴</span>
+          <span class="act-stat-number" id="act-lost-count">0</span>
+          <span class="act-stat-label">Products You Lost</span>
+        </div>
+        <div class="act-stat-card act-stat-found">
+          <span class="act-stat-icon">🟢</span>
+          <span class="act-stat-number" id="act-found-count">0</span>
+          <span class="act-stat-label">Products You Found</span>
+        </div>
+      </div>
+
+      <!-- Filter Tabs inside Activity Modal -->
+      <div class="comm-nav-tabs">
+        <button type="button" class="comm-tab-btn active" id="act-tab-all">All Products (<span id="tab-all-num">0</span>)</button>
+        <button type="button" class="comm-tab-btn" id="act-tab-lost">🔴 Lost by You (<span id="tab-lost-num">0</span>)</button>
+        <button type="button" class="comm-tab-btn" id="act-tab-found">🟢 Found by You (<span id="tab-found-num">0</span>)</button>
+      </div>
+
+      <!-- List of Products Reported by this User -->
+      <div class="act-items-container" id="act-items-list">
+        <!-- Dynamically rendered -->
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast">Your report was submitted.</div>
+
+  <script>
+    let reportType = 'lost';
+    const modal = document.querySelector('#modal');
+    const accountModal = document.querySelector('#account-modal');
+    const loginModal = document.querySelector('#login-modal');
+    const toast = document.querySelector('#toast');
+    const categorySelect = document.querySelector('#item-category');
+    const otherDetails = document.querySelector('#other-details');
+    const otherItem = document.querySelector('#other-item');
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    const API_BASE = (window.location.protocol === 'http:' || window.location.protocol === 'https:') ? (window.location.port === '5000' ? '' : 'http://localhost:5000') : 'http://localhost:5000';
+
+    function getAuthToken() {
+      return localStorage.getItem('lostAndFoundToken') || '';
+    }
+
+    function getUsers() {
+      try {
+        return JSON.parse(localStorage.getItem('lostAndFoundUsers') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function getCurrentUser() {
+      try {
+        return JSON.parse(localStorage.getItem('lostAndFoundCurrentUser') || 'null');
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function updateAuthUI() {
+      const user = getCurrentUser();
+      const authActions = document.querySelector('#auth-actions');
+      const userProfile = document.querySelector('#user-profile');
+      if (user) {
+        authActions.style.display = 'none';
+        userProfile.style.display = 'flex';
+        document.querySelector('#user-display-name').textContent = user.fullName || user.userId;
+        document.querySelector('#avatar-initials').textContent = (user.fullName || user.userId).charAt(0).toUpperCase();
+        if (typeof updateUserStats === 'function') updateUserStats();
+      } else {
+        authActions.style.display = 'flex';
+        userProfile.style.display = 'none';
+      }
+    }
+
+    // Check and prompt on visit if no active session
+    function checkAuthOnVisit() {
+      const user = getCurrentUser();
+      if (!user) {
+        setTimeout(() => {
+          showToast('Welcome to Lost & Found! Please log in or create an account to get started.');
+          loginModal.classList.add('open');
+          const loginField = document.querySelector('#login-id');
+          if (loginField) loginField.focus();
+        }, 400);
+      }
+    }
+
+    // Initialize UI on load
+    updateAuthUI();
+    checkAuthOnVisit();
+
+    // Opening Login Modal
+    function handleOpenLogin() {
+      accountModal.classList.remove('open');
+      loginModal.classList.add('open');
+      document.querySelector('#login-id').focus();
+    }
+
+    document.querySelector('#open-login').addEventListener('click', handleOpenLogin);
+    document.querySelector('#open-account').addEventListener('click', () => {
+      loginModal.classList.remove('open');
+      accountModal.classList.add('open');
+      document.querySelector('#full-name').focus();
+    });
+
+    document.querySelector('#switch-to-signup').addEventListener('click', (e) => {
+      e.preventDefault();
+      loginModal.classList.remove('open');
+      accountModal.classList.add('open');
+      document.querySelector('#full-name').focus();
+    });
+
+    document.querySelector('#switch-to-login').addEventListener('click', (e) => {
+      e.preventDefault();
+      handleOpenLogin();
+    });
+
+    document.querySelector('.login-close').addEventListener('click', () => loginModal.classList.remove('open'));
+    document.querySelector('#login-cancel').addEventListener('click', () => loginModal.classList.remove('open'));
+    loginModal.addEventListener('click', event => { if (event.target === loginModal) loginModal.classList.remove('open'); });
+
+    document.querySelector('.account-close').addEventListener('click', () => accountModal.classList.remove('open'));
+    document.querySelector('#account-cancel').addEventListener('click', () => accountModal.classList.remove('open'));
+    accountModal.addEventListener('click', event => { if (event.target === accountModal) accountModal.classList.remove('open'); });
+
+    // Handle Login submission via Backend Database API with Local Fallback
+    document.querySelector('#login-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const loginId = document.querySelector('#login-id').value.trim();
+      const password = document.querySelector('#login-password').value;
+      const submitBtn = event.target.querySelector('button[type="submit"]');
+
+      if (!loginId || !password) {
+        showToast('Please enter your User ID or Email and password.');
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Logging in...';
+      }
+
+      let loggedInUser = null;
+      let token = null;
+
+      // 1. Try Backend Database API
+      try {
+        const res = await fetch(API_BASE + '/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ loginId, password })
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          loggedInUser = data.user;
+          token = data.token;
+        } else if (res.status === 400 || res.status === 401) {
+          showToast(data.error || 'Incorrect credentials. Please verify or register.');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Log in';
+          }
+          return;
+        }
+      } catch (err) {
+        console.warn('Backend server offline or unreachable. Checking local storage database:', err);
+      }
+
+      // 2. If Backend was offline, check local storage database
+      if (!loggedInUser) {
+        const users = getUsers();
+        const cleanLoginId = loginId.toLowerCase();
+        const match = users.find(u => 
+          ((u.userId || '').toLowerCase() === cleanLoginId || (u.email || '').toLowerCase() === cleanLoginId) &&
+          u.password === password
+        );
+        if (match) {
+          loggedInUser = {
+            id: match.id || ('user_' + match.userId),
+            fullName: match.fullName || match.userId,
+            email: match.email || '',
+            userId: match.userId,
+            accountType: match.accountType || 'Student'
+          };
+          token = 'local_token_' + Date.now();
+        } else {
+          showToast('Invalid credentials. User not found. Please register.');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Log in';
+          }
+          return;
+        }
+      }
+
+      // 3. Save session and close modal
+      localStorage.setItem('lostAndFoundToken', token);
+      localStorage.setItem('lostAndFoundCurrentUser', JSON.stringify(loggedInUser));
+
+      loginModal.classList.remove('open');
+      event.target.reset();
+      updateAuthUI();
+      showToast(`Welcome back, ${loggedInUser.fullName || loggedInUser.userId}!`);
+
+      if (typeof loadItemsFromServer === 'function') {
+        loadItemsFromServer();
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Log in';
+      }
+    });
+
+    // Handle Account Creation via Backend Database API with Local Fallback
+    document.querySelector('#account-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const fullName = document.querySelector('#full-name').value.trim();
+      const email = document.querySelector('#account-email').value.trim();
+      const userId = document.querySelector('#user-id').value.trim();
+      const accountType = document.querySelector('#account-type').value;
+      const password = document.querySelector('#password').value;
+      const confirmPassword = document.querySelector('#confirm-password').value;
+      const submitBtn = event.target.querySelector('button[type="submit"]');
+
+      if (!fullName || !email || !userId || !password) {
+        showToast('Please fill in all required fields.');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        document.querySelector('#confirm-password').setCustomValidity('Passwords do not match.');
+        event.target.reportValidity();
+        showToast('Passwords do not match. Please verify.');
+        return;
+      }
+      document.querySelector('#confirm-password').setCustomValidity('');
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating account...';
+      }
+
+      let createdUser = null;
+      let token = null;
+
+      // 1. Try Backend Database API
+      try {
+        const res = await fetch(API_BASE + '/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fullName, email, userId, accountType, password })
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          createdUser = data.user;
+          token = data.token;
+        } else {
+          showToast(data.error || 'Failed to create account.');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Create account';
+          }
+          return;
+        }
+      } catch (err) {
+        console.warn('Backend server offline or unreachable. Using persistent local database fallback:', err);
+      }
+
+      // 2. If Backend server was offline, register in local persistent database
+      if (!createdUser) {
+        const users = getUsers();
+        const cleanUserId = userId.toLowerCase();
+        const cleanEmail = email.toLowerCase();
+        if (users.some(u => (u.userId || '').toLowerCase() === cleanUserId || (u.email || '').toLowerCase() === cleanEmail)) {
+          showToast('User ID or Email is already registered.');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Create account';
+          }
+          return;
+        }
+        createdUser = {
+          id: 'user_' + Date.now(),
+          fullName,
+          email,
+          userId,
+          accountType
+        };
+        users.push({ ...createdUser, password });
+        localStorage.setItem('lostAndFoundUsers', JSON.stringify(users));
+        token = 'local_token_' + Date.now();
+      }
+
+      // 3. Save session & close modal
+      localStorage.setItem('lostAndFoundToken', token);
+      localStorage.setItem('lostAndFoundCurrentUser', JSON.stringify(createdUser));
+
+      accountModal.classList.remove('open');
+      event.target.reset();
+      updateAuthUI();
+      showToast(`Account created successfully! Welcome, ${createdUser.fullName || createdUser.userId}!`);
+
+      if (typeof loadItemsFromServer === 'function') {
+        loadItemsFromServer();
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Create account';
+      }
+    });
+
+    // Logout
+    document.querySelector('#logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('lostAndFoundCurrentUser');
+      localStorage.removeItem('lostAndFoundToken');
+      updateAuthUI();
+      showToast('Logged out successfully.');
+      setTimeout(checkAuthOnVisit, 600);
+    });
+
+    // Require account / login when reporting an item
+    function openModal(type) {
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        const users = getUsers();
+        if (users.length === 0) {
+          showToast('First time here? Please create an account first to report an item!');
+          accountModal.classList.add('open');
+          document.querySelector('#full-name').focus();
+        } else {
+          showToast('Please log in to report an item.');
+          loginModal.classList.add('open');
+          document.querySelector('#login-id').focus();
+        }
+        return;
+      }
+      reportType = (type || 'lost').toLowerCase();
+      const isFound = reportType === 'found';
+      document.querySelector('#modal-title').textContent = isFound ? 'Report a found item' : 'Report a lost item';
+      const subtitle = document.querySelector('#modal-subtitle');
+      if (subtitle) subtitle.textContent = isFound ? 'Enter details of the item you found.' : 'Enter details of the item you lost.';
+      const placeLabel = document.querySelector('#label-place');
+      if (placeLabel) placeLabel.textContent = isFound ? 'Where was it found?' : 'Where was it lost?';
+      const dateLabel = document.querySelector('#label-date');
+      if (dateLabel) dateLabel.textContent = isFound ? 'When was it found?' : 'When was it lost?';
+      const submitBtn = document.querySelector('#submit-report-btn');
+      if (submitBtn) submitBtn.textContent = isFound ? 'Publish found report' : 'Publish lost report';
+
+      modal.classList.add('open');
+      document.querySelector('#item-name').focus();
+    }
+
+    document.querySelectorAll('[data-open]').forEach(button => {
+      button.addEventListener('click', () => openModal(button.dataset.open));
+    });
+    document.querySelector('.close').addEventListener('click', () => modal.classList.remove('open'));
+    document.querySelector('#cancel').addEventListener('click', () => modal.classList.remove('open'));
+    modal.addEventListener('click', event => { if (event.target === modal) modal.classList.remove('open'); });
+
+    // Item Storage & Management with Backend Integration
+    let cachedItems = [];
+    try {
+      cachedItems = JSON.parse(localStorage.getItem('lostAndFoundItems') || '[]');
+    } catch (e) {
+      cachedItems = [];
+    }
+
+    function getStoredItems() {
+      return cachedItems;
+    }
+
+    function saveStoredItems(items) {
+      cachedItems = items;
+      try {
+        localStorage.setItem('lostAndFoundItems', JSON.stringify(items));
+      } catch (e) {}
+    }
+
+    async function loadItemsFromServer() {
+      try {
+        const res = await fetch(API_BASE + '/api/items');
+        if (res.ok) {
+          const items = await res.json();
+          saveStoredItems(items);
+          renderItems(currentFilter);
+          if (typeof updateUserStats === 'function') updateUserStats();
+        }
+      } catch (e) {
+        console.warn('Backend unavailable, using cached items:', e);
+      }
+    }
+
+    let currentFilter = 'all';
+
+    function setActiveFilter(filterVal) {
+      currentFilter = (filterVal || 'all').toLowerCase();
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === currentFilter);
+      });
+      const searchSelect = document.querySelector('#search-type');
+      if (searchSelect && searchSelect.value !== currentFilter) {
+        searchSelect.value = currentFilter;
+      }
+    }
+
+    function getCategoryIcon(cat) {
+      switch (cat) {
+        case 'Electronic':
+        case 'Electronics':
+        case 'Tech': return '💻';
+        case 'Personal': return '👓';
+        case 'Cards & keys': return '🔑';
+        case 'Bags': return '🎒';
+        default: return '📦';
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ==========================================
+    // Machine Learning: TF-IDF & Cosine Similarity Search Engine
+    // ==========================================
+    const STOP_WORDS = new Set([
+      'a','about','above','after','again','against','all','am','an','and','any','are','as','at',
+      'be','because','been','before','being','below','between','both','but','by','can',
+      'could','did','do','does','doing','down','during','each','few','for','from','further',
+      'had','has','have','having','he','her','here','hers','herself','him','himself','his',
+      'how','i','if','in','into','is','it','its','itself','just','me','more','most','my',
+      'myself','no','nor','not','of','off','on','once','only','or','other','our','ours',
+      'ourselves','out','over','own','s','same','she','should','so','some','such','than',
+      'that','the','their','theirs','them','themselves','then','there','these','they','this',
+      'those','through','to','too','under','until','up','very','was','we','were','what',
+      'when','where','which','while','who','whom','why','will','with','you','your','yours'
+    ]);
+
+    function tokenizeText(text) {
+      if (!text) return [];
+      const clean = String(text)
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .trim();
+      
+      const words = clean.split(/\s+/).filter(w => w.length > 0 && !STOP_WORDS.has(w));
+      const tokens = [...words];
+
+      // Add character tri-grams for subword and typo matching
+      words.forEach(word => {
+        if (word.length >= 3) {
+          for (let i = 0; i <= word.length - 3; i++) {
+            tokens.push('__' + word.slice(i, i + 3));
+          }
+        }
+      });
+
+      return tokens;
+    }
+
+    function calculateTfidfCosineSimilarity(query, items) {
+      if (!query || !items || items.length === 0) {
+        return items.map(it => ({ ...it, similarity: 0 }));
+      }
+
+      const qTokens = tokenizeText(query);
+      if (qTokens.length === 0) {
+        return items.map(it => ({ ...it, similarity: 0 }));
+      }
+
+      // Weight item name 3x more heavily in document representation
+      const corpusDocs = items.map(item => {
+        const text = `${item.name} ${item.name} ${item.name} ${item.category} ${item.place} ${item.details || ''} ${item.type}`;
+        return tokenizeText(text);
+      });
+
+      const allDocs = [...corpusDocs, qTokens];
+      const N = allDocs.length;
+
+      // Compute Document Frequency (DF)
+      const dfMap = {};
+      allDocs.forEach(docTokens => {
+        const seen = new Set(docTokens);
+        seen.forEach(token => {
+          dfMap[token] = (dfMap[token] || 0) + 1;
+        });
+      });
+
+      // Vectorize into TF-IDF sparse space
+      function vectorize(tokens) {
+        const tfMap = {};
+        tokens.forEach(t => {
+          tfMap[t] = (tfMap[t] || 0) + 1;
+        });
+
+        const totalTokens = tokens.length || 1;
+        const vec = {};
+        for (const [token, count] of Object.entries(tfMap)) {
+          const tf = count / totalTokens;
+          const idf = Math.log((N + 1) / ((dfMap[token] || 0) + 1)) + 1;
+          vec[token] = tf * idf;
+        }
+        return vec;
+      }
+
+      // Cosine similarity formula: (A . B) / (||A|| * ||B||)
+      function cosineSim(vecA, vecB) {
+        let dotProduct = 0;
+        let magA = 0;
+        let magB = 0;
+
+        for (const val of Object.values(vecA)) {
+          magA += val * val;
+        }
+        for (const val of Object.values(vecB)) {
+          magB += val * val;
+        }
+
+        if (magA === 0 || magB === 0) return 0;
+
+        const [smaller, larger] = Object.keys(vecA).length < Object.keys(vecB).length ? [vecA, vecB] : [vecB, vecA];
+        for (const [term, val] of Object.entries(smaller)) {
+          if (larger[term]) {
+            dotProduct += val * larger[term];
+          }
+        }
+
+        return dotProduct / (Math.sqrt(magA) * Math.sqrt(magB));
+      }
+
+      const qVec = vectorize(qTokens);
+
+      return items.map((item, idx) => {
+        const docVec = vectorize(corpusDocs[idx]);
+        let sim = cosineSim(qVec, docVec);
+
+        // Exact substring bonus for high confidence
+        const lowerQ = query.toLowerCase();
+        const itemName = (item.name || '').toLowerCase();
+        const itemDetails = (item.details || '').toLowerCase();
+        const itemPlace = (item.place || '').toLowerCase();
+        const itemCategory = (item.category || '').toLowerCase();
+
+        if (itemName === lowerQ) {
+          sim = 1.0;
+        } else if (itemName.includes(lowerQ)) {
+          sim = Math.max(sim, 0.82 + (lowerQ.length / (itemName.length + 5)) * 0.18);
+        } else if (itemDetails.includes(lowerQ) || itemPlace.includes(lowerQ) || itemCategory.includes(lowerQ)) {
+          sim = Math.max(sim, 0.68);
+        }
+
+        return {
+          ...item,
+          similarity: Math.min(1, Math.max(0, sim))
+        };
+      });
+    }
+
+    function renderItems(filter = currentFilter, searchQuery = '') {
+      const grid = document.querySelector('#items-grid');
+      if (!grid) return;
+      const allItems = getStoredItems();
+      const targetFilter = (filter || 'all').toLowerCase();
+      const query = (searchQuery || '').trim();
+
+      let itemsToRender = allItems;
+
+      if (query) {
+        // Run ML Cosine Similarity
+        const scoredItems = calculateTfidfCosineSimilarity(query, allItems);
+        itemsToRender = scoredItems.filter(item => {
+          const itemType = (item.type || '').toLowerCase();
+          if (targetFilter !== 'all' && itemType !== targetFilter) {
+            return false;
+          }
+          return item.similarity > 0.05;
+        });
+
+        // Rank results by Cosine Similarity in descending order
+        itemsToRender.sort((a, b) => (b.similarity || 0) - (a.similarity || 0));
+      } else {
+        itemsToRender = allItems.filter(item => {
+          const itemType = (item.type || '').toLowerCase();
+          return targetFilter === 'all' || itemType === targetFilter;
+        });
+      }
+
+      if (itemsToRender.length === 0) {
+        grid.innerHTML = `
+          <div class="empty">
+            <strong style="color: #ffffff; font-size: 16px;">No ${targetFilter !== 'all' ? targetFilter : ''} items found</strong>
+            <p style="margin: 8px 0 0; color: #94a3b8; font-size: 13px;">
+              ${query ? `No items matched "${escapeHtml(query)}" with ML Cosine Similarity. Try broader keywords.` : 'No registered items yet. Click "I lost something" or "I found something" above to report one!'}
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = itemsToRender.map(item => {
+        const isFoundItem = (item.type || '').toLowerCase() === 'found';
+        const hasSim = query && item.similarity && item.similarity > 0;
+        const simPercent = hasSim ? Math.round(item.similarity * 100) : 0;
+        const simClass = simPercent >= 75 ? 'high' : (simPercent >= 45 ? 'med' : 'low');
+
+        return `
+          <div class="item-card" data-item-id="${item.id}" style="cursor: pointer;">
+            <div class="item-top">
+              <div class="large-icon">${getCategoryIcon(item.category)}</div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                ${hasSim ? `
+                  <span class="ml-match-badge ${simClass}" title="ML Cosine Similarity: ${simPercent}%">
+                    ⚡ ${simPercent}% Match
+                  </span>
+                ` : ''}
+                <span class="tag ${isFoundItem ? 'found' : 'lost'}">${isFoundItem ? 'FOUND' : 'LOST'}</span>
+              </div>
+            </div>
+            <h3>${escapeHtml(item.name)}</h3>
+            <p>${escapeHtml(item.details || 'No description provided.')}</p>
+            <div style="font-size: 12px; color: #94a3b8; margin-bottom: 12px; line-height: 1.6;">
+              <div>📍 <strong>${isFoundItem ? 'Found at:' : 'Lost at:'}</strong> ${escapeHtml(item.place)}</div>
+              <div>🗓️ <strong>Date:</strong> ${escapeHtml(item.date)}</div>
+            </div>
+            <div class="item-meta">
+              <span>By <strong>${escapeHtml(item.reportedBy || 'Registered User')}</strong></span>
+              <span>${escapeHtml(item.category)}</span>
+            </div>
+            <button type="button" class="card-contact-btn" data-contact-id="${item.id}">
+              💬 Chat / 📞 Call ${isFoundItem ? 'Finder' : 'Reporter'}
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Filter Tabs
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setActiveFilter(btn.dataset.filter);
+        const q = document.querySelector('#search-item').value.trim();
+        renderItems(currentFilter, q);
+      });
+    });
+
+    // Real-Time Search Handler
+    document.querySelector('#search-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const q = document.querySelector('#search-item').value.trim();
+      const selectedType = document.querySelector('#search-type').value;
+      setActiveFilter(selectedType);
+      renderItems(currentFilter, q);
+      showToast(q ? `ML Cosine Similarity: Ranked search results for "${q}"` : `Showing all ${currentFilter} items`);
+      const board = document.querySelector('#board');
+      if (board) board.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.querySelector('#search-item').addEventListener('input', event => {
+      const q = event.target.value.trim();
+      renderItems(currentFilter, q);
+    });
+
+    document.querySelector('#search-type').addEventListener('change', (e) => {
+      setActiveFilter(e.target.value);
+      const q = document.querySelector('#search-item').value.trim();
+      renderItems(currentFilter, q);
+    });
+
+    categorySelect.addEventListener('change', () => {
+      const isOther = categorySelect.value === 'Other';
+      otherDetails.classList.toggle('visible', isOther);
+      otherItem.required = isOther;
+    });
+
+    // Handle Report Registration and Persistent Storage (Lost & Found)
+    document.querySelector('#report-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        showToast('Please log in or create an account to submit a report.');
+        loginModal.classList.add('open');
+        return;
+      }
+
+      const submitBtn = document.querySelector('#submit-report-btn');
+      const name = document.querySelector('#item-name').value.trim();
+      const category = document.querySelector('#item-category').value;
+      const otherItemVal = document.querySelector('#other-item').value.trim();
+      const place = document.querySelector('#item-place').value.trim();
+      const date = document.querySelector('#item-date').value;
+      const details = document.querySelector('#item-details').value.trim();
+      const itemType = (reportType || 'lost').toLowerCase(); // 'lost' or 'found'
+
+      const itemPayload = {
+        name: name,
+        type: itemType,
+        category: category === 'Other' && otherItemVal ? otherItemVal : category,
+        place: place,
+        date: date,
+        details: details
+      };
+
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const res = await fetch(API_BASE + '/api/items', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getAuthToken()
+          },
+          body: JSON.stringify(itemPayload)
+        });
+
+        const savedItem = await res.json();
+
+        if (!res.ok) {
+          showToast(savedItem.error || 'Failed to submit report.');
+          return;
+        }
+
+        cachedItems.unshift(savedItem);
+        saveStoredItems(cachedItems);
+
+        modal.classList.remove('open');
+        event.target.reset();
+        otherDetails.classList.remove('visible');
+        otherItem.required = false;
+
+        // Automatically switch to the tab of the submitted report so user sees it instantly
+        setActiveFilter(itemType);
+        document.querySelector('#search-item').value = '';
+        renderItems(itemType);
+        updateUserStats();
+
+        showToast(`Success! Your ${itemType.toUpperCase()} item report for "${name}" is saved in the database!`);
+
+        const board = document.querySelector('#board');
+        if (board) board.scrollIntoView({ behavior: 'smooth' });
+      } catch (err) {
+        console.warn('Backend server offline, saving report to local persistent storage:', err);
+        const currentUser = getCurrentUser() || {};
+        const localItem = {
+          ...itemPayload,
+          id: Date.now(),
+          reporterUserId: currentUser.userId || 'guest',
+          reportedBy: currentUser.fullName || currentUser.userId || 'User',
+          reportedAt: new Date().toLocaleDateString()
+        };
+        cachedItems.unshift(localItem);
+        saveStoredItems(cachedItems);
+        modal.classList.remove('open');
+        event.target.reset();
+        otherDetails.classList.remove('visible');
+        otherItem.required = false;
+        setActiveFilter(itemType);
+        document.querySelector('#search-item').value = '';
+        renderItems(itemType);
+        updateUserStats();
+        showToast(`Success! Your ${itemType.toUpperCase()} item report for "${name}" is registered!`);
+        const board = document.querySelector('#board');
+        if (board) board.scrollIntoView({ behavior: 'smooth' });
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+
+    // Communication (Live Chat & Voice Call) Management
+    const contactModal = document.querySelector('#contact-modal');
+    let activeContactItem = null;
+    let callTimerInterval = null;
+    let callSeconds = 0;
+    let isCallMuted = false;
+    let isCallSpeaker = false;
+
+    function openContactModal(itemId) {
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        showToast('Please log in or create an account to chat or call with the user.');
+        const users = getUsers();
+        if (users.length === 0) {
+          accountModal.classList.add('open');
+          document.querySelector('#full-name').focus();
+        } else {
+          loginModal.classList.add('open');
+          document.querySelector('#login-id').focus();
+        }
+        return;
+      }
+
+      const items = getStoredItems();
+      const item = items.find(i => String(i.id) === String(itemId));
+      if (!item) return;
+      activeContactItem = item;
+
+      const reporter = item.reportedBy || 'Registered User';
+      const isFound = (item.type || '').toLowerCase() === 'found';
+
+      document.querySelector('#comm-user-name').textContent = `${reporter} (${isFound ? 'Finder' : 'Reporter'})`;
+      document.querySelector('#comm-item-title').textContent = `${isFound ? 'Found' : 'Lost'} Item: ${item.name} · ${item.place}`;
+      document.querySelector('#comm-avatar').textContent = reporter.charAt(0).toUpperCase();
+      document.querySelector('#call-avatar-big').textContent = reporter.charAt(0).toUpperCase();
+      document.querySelector('#call-contact-name').textContent = reporter;
+
+      switchCommTab('chat');
+      renderChatMessages();
+      contactModal.classList.add('open');
+      const chatInput = document.querySelector('#chat-input');
+      if (chatInput) chatInput.focus();
+    }
+
+    function switchCommTab(tab) {
+      const chatBtn = document.querySelector('#tab-chat-btn');
+      const callBtn = document.querySelector('#tab-call-btn');
+      const chatView = document.querySelector('#chat-view');
+      const callView = document.querySelector('#call-view');
+
+      if (tab === 'chat') {
+        chatBtn.classList.add('active');
+        callBtn.classList.remove('active');
+        chatView.style.display = 'flex';
+        callView.style.display = 'none';
+        endVoiceCall();
+      } else {
+        callBtn.classList.add('active');
+        chatBtn.classList.remove('active');
+        chatView.style.display = 'none';
+        callView.style.display = 'flex';
+        startVoiceCall();
+      }
+    }
+
+    document.querySelector('#tab-chat-btn').addEventListener('click', () => switchCommTab('chat'));
+    document.querySelector('#tab-call-btn').addEventListener('click', () => switchCommTab('call'));
+
+    function closeContactModal() {
+      endVoiceCall();
+      contactModal.classList.remove('open');
+      activeContactItem = null;
+    }
+
+    document.querySelector('#comm-close').addEventListener('click', closeContactModal);
+    contactModal.addEventListener('click', (e) => {
+      if (e.target === contactModal) closeContactModal();
+    });
+
+    // Chat Message Management with Database Integration
+    async function renderChatMessages() {
+      if (!activeContactItem) return;
+      const container = document.querySelector('#chat-messages');
+      const key = 'chat_' + activeContactItem.id;
+      let msgs = [];
+
+      try {
+        const res = await fetch(API_BASE + '/api/chat/' + activeContactItem.id);
+        if (res.ok) {
+          msgs = await res.json();
+          localStorage.setItem(key, JSON.stringify(msgs));
+        } else {
+          msgs = JSON.parse(localStorage.getItem(key) || '[]');
+        }
+      } catch (err) {
+        try {
+          msgs = JSON.parse(localStorage.getItem(key) || '[]');
+        } catch (e) { msgs = []; }
+      }
+
+      if (msgs.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; color: #64748b; font-size: 13px; margin: auto; padding: 24px; line-height: 1.5;">
+            No messages yet.<br>Send a message below to start the conversation!
+          </div>
+        `;
+        return;
+      }
+
+      const currentUser = getCurrentUser();
+      container.innerHTML = msgs.map(m => {
+        const isMe = currentUser && (m.userId ? m.userId === currentUser.userId : m.sender === 'me');
+        return `
+          <div class="chat-msg ${isMe ? 'me' : 'them'}">
+            <div style="font-weight: 700; font-size: 11px; margin-bottom: 2px;">${escapeHtml(m.senderName)}</div>
+            <div>${escapeHtml(m.text)}</div>
+            <span class="msg-meta">${escapeHtml(m.time)}</span>
+          </div>
+        `;
+      }).join('');
+      container.scrollTop = container.scrollHeight;
+    }
+
+    document.querySelector('#chat-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.querySelector('#chat-input');
+      const text = input.value.trim();
+      if (!text || !activeContactItem) return;
+
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        showToast('Please log in to send messages.');
+        loginModal.classList.add('open');
+        return;
+      }
+
+      const key = 'chat_' + activeContactItem.id;
+      const newMsg = {
+        userId: currentUser.userId,
+        senderName: currentUser.fullName || currentUser.userId,
+        text: text,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
+      input.value = '';
+
+      try {
+        const res = await fetch(API_BASE + '/api/chat/' + activeContactItem.id, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getAuthToken()
+          },
+          body: JSON.stringify({ text })
+        });
+
+        if (res.ok) {
+          await renderChatMessages();
+        } else {
+          // Local fallback
+          let msgs = JSON.parse(localStorage.getItem(key) || '[]');
+          msgs.push(newMsg);
+          localStorage.setItem(key, JSON.stringify(msgs));
+          renderChatMessages();
+        }
+      } catch (err) {
+        console.error('Chat send error:', err);
+        let msgs = JSON.parse(localStorage.getItem(key) || '[]');
+        msgs.push(newMsg);
+        localStorage.setItem(key, JSON.stringify(msgs));
+        renderChatMessages();
+      }
+    });
+
+    // Voice Call Simulation
+    function startVoiceCall() {
+      endVoiceCall(); // Reset if any
+      const statusLabel = document.querySelector('#call-status-label');
+      const timerLabel = document.querySelector('#call-timer');
+      const pulse = document.querySelector('#call-pulse');
+      const muteBtn = document.querySelector('#call-mute');
+      const speakerBtn = document.querySelector('#call-speaker');
+
+      isCallMuted = false;
+      isCallSpeaker = false;
+      muteBtn.classList.remove('active');
+      speakerBtn.classList.remove('active');
+
+      statusLabel.textContent = 'Calling...';
+      statusLabel.style.color = '#38bdf8';
+      timerLabel.textContent = '00:00';
+      pulse.style.display = 'block';
+
+      // Ringing phase
+      setTimeout(() => {
+        if (!contactModal.classList.contains('open') || document.querySelector('#call-view').style.display === 'none') return;
+        statusLabel.textContent = 'Connected (Audio)';
+        statusLabel.style.color = '#4ade80';
+
+        callSeconds = 0;
+        callTimerInterval = setInterval(() => {
+          callSeconds++;
+          const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+          const secs = String(callSeconds % 60).padStart(2, '0');
+          timerLabel.textContent = `${mins}:${secs}`;
+        }, 1000);
+      }, 2400);
+    }
+
+    function endVoiceCall() {
+      if (callTimerInterval) {
+        clearInterval(callTimerInterval);
+        callTimerInterval = null;
+      }
+      const statusLabel = document.querySelector('#call-status-label');
+      const pulse = document.querySelector('#call-pulse');
+      if (statusLabel) {
+        statusLabel.textContent = 'Call Ended';
+        statusLabel.style.color = '#ef4444';
+      }
+      if (pulse) pulse.style.display = 'none';
+    }
+
+    document.querySelector('#call-end').addEventListener('click', () => {
+      endVoiceCall();
+      showToast('Voice call ended.');
+      setTimeout(() => switchCommTab('chat'), 700);
+    });
+
+    document.querySelector('#call-mute').addEventListener('click', (e) => {
+      isCallMuted = !isCallMuted;
+      e.currentTarget.classList.toggle('active', isCallMuted);
+      showToast(isCallMuted ? 'Microphone Muted' : 'Microphone Unmuted');
+    });
+
+    document.querySelector('#call-speaker').addEventListener('click', (e) => {
+      isCallSpeaker = !isCallSpeaker;
+      e.currentTarget.classList.toggle('active', isCallSpeaker);
+      showToast(isCallSpeaker ? 'Speaker Output Enabled' : 'Speaker Output Disabled');
+    });
+
+    // Delegate Card Click & Contact Button Click
+    document.querySelector('#items-grid').addEventListener('click', (e) => {
+      const contactBtn = e.target.closest('.card-contact-btn');
+      const itemCard = e.target.closest('.item-card');
+      if (contactBtn) {
+        e.stopPropagation();
+        openContactModal(contactBtn.dataset.contactId);
+      } else if (itemCard && itemCard.dataset.itemId) {
+        openContactModal(itemCard.dataset.itemId);
+      }
+    });
+
+    // User Profile Activity & Stats Management
+    function getUserItems() {
+      const user = getCurrentUser();
+      if (!user) return [];
+      const allItems = getStoredItems();
+      const uId = String(user.userId || '').trim().toLowerCase();
+      const uName = String(user.fullName || '').trim().toLowerCase();
+      return allItems.filter(item => {
+        const rId = String(item.reporterUserId || '').trim().toLowerCase();
+        const rName = String(item.reportedBy || '').trim().toLowerCase();
+        if (rId && rId === uId) return true;
+        if (rName && (rName === uName || rName === uId)) return true;
+        return false;
+      });
+    }
+
+    function updateUserStats() {
+      const user = getCurrentUser();
+      if (!user) return;
+      const myItems = getUserItems();
+      const lostCount = myItems.filter(item => (item.type || '').toLowerCase() === 'lost').length;
+      const foundCount = myItems.filter(item => (item.type || '').toLowerCase() === 'found').length;
+      const totalCount = myItems.length;
+
+      // Update Header Badges
+      const lostBadge = document.querySelector('#stat-lost-count');
+      const foundBadge = document.querySelector('#stat-found-count');
+      if (lostBadge) lostBadge.textContent = `${lostCount} Lost`;
+      if (foundBadge) foundBadge.textContent = `${foundCount} Found`;
+
+      // Update Modal Counters
+      const mTotal = document.querySelector('#act-total-count');
+      const mLost = document.querySelector('#act-lost-count');
+      const mFound = document.querySelector('#act-found-count');
+      if (mTotal) mTotal.textContent = totalCount;
+      if (mLost) mLost.textContent = lostCount;
+      if (mFound) mFound.textContent = foundCount;
+
+      const tAll = document.querySelector('#tab-all-num');
+      const tLost = document.querySelector('#tab-lost-num');
+      const tFound = document.querySelector('#tab-found-num');
+      if (tAll) tAll.textContent = totalCount;
+      if (tLost) tLost.textContent = lostCount;
+      if (tFound) tFound.textContent = foundCount;
+    }
+
+    const actModal = document.querySelector('#user-activity-modal');
+    let actFilter = 'all';
+
+    function openActivityModal(tab = 'all') {
+      const user = getCurrentUser();
+      if (!user) {
+        showToast('Please log in or create an account to view your activity.');
+        return;
+      }
+      actFilter = tab;
+      const displayName = user.fullName || user.userId;
+      document.querySelector('#act-user-name').textContent = `${displayName}'s Activity`;
+      document.querySelector('#act-avatar').textContent = displayName.charAt(0).toUpperCase();
+      updateUserStats();
+      renderActivityItems(actFilter);
+      actModal.classList.add('open');
+    }
+
+    function closeActivityModal() {
+      if (actModal) actModal.classList.remove('open');
+    }
+
+    function renderActivityItems(filter = 'all') {
+      const myItems = getUserItems();
+      const listEl = document.querySelector('#act-items-list');
+      if (!listEl) return;
+
+      const filtered = myItems.filter(item => {
+        if (filter === 'all') return true;
+        return (item.type || '').toLowerCase() === filter;
+      });
+
+      document.querySelector('#act-tab-all').classList.toggle('active', filter === 'all');
+      document.querySelector('#act-tab-lost').classList.toggle('active', filter === 'lost');
+      document.querySelector('#act-tab-found').classList.toggle('active', filter === 'found');
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `
+          <div style="text-align: center; color: #94a3b8; padding: 35px 20px;">
+            <div style="font-size: 32px; margin-bottom: 8px;">📭</div>
+            <strong style="color: #ffffff; font-size: 15px;">No ${filter === 'all' ? '' : filter} products reported by you yet</strong>
+            <p style="margin: 6px 0 0; font-size: 12px; color: #64748b;">
+              Click "I lost something" or "I found something" on the homepage to report an item.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(item => {
+        const isFound = (item.type || '').toLowerCase() === 'found';
+        return `
+          <div class="act-item-row" data-id="${item.id}">
+            <div class="act-item-left">
+              <div class="act-item-icon">${getCategoryIcon(item.category)}</div>
+              <div class="act-item-info">
+                <h4>${escapeHtml(item.name)} <span class="tag ${isFound ? 'found' : 'lost'}" style="margin-left: 6px; font-size: 10px; padding: 2px 7px;">${isFound ? 'FOUND' : 'LOST'}</span></h4>
+                <p>📍 ${escapeHtml(item.place)} · 🗓️ ${escapeHtml(item.date)} · Category: ${escapeHtml(item.category)}</p>
+              </div>
+            </div>
+            <div class="act-item-actions">
+              <button type="button" class="act-del-btn" data-delete-id="${item.id}" title="Remove this report">🗑️ Delete</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const openProfileBtn = document.querySelector('#open-profile-btn');
+    if (openProfileBtn) {
+      openProfileBtn.addEventListener('click', () => openActivityModal('all'));
+    }
+    const actCloseBtn = document.querySelector('#act-close');
+    if (actCloseBtn) {
+      actCloseBtn.addEventListener('click', closeActivityModal);
+    }
+    if (actModal) {
+      actModal.addEventListener('click', (e) => {
+        if (e.target === actModal) closeActivityModal();
+      });
+    }
+
+    document.querySelector('#act-tab-all').addEventListener('click', () => { actFilter = 'all'; renderActivityItems('all'); });
+    document.querySelector('#act-tab-lost').addEventListener('click', () => { actFilter = 'lost'; renderActivityItems('lost'); });
+    document.querySelector('#act-tab-found').addEventListener('click', () => { actFilter = 'found'; renderActivityItems('found'); });
+
+    // Handle delete item from user activity list
+    document.querySelector('#act-items-list').addEventListener('click', async (e) => {
+      const delBtn = e.target.closest('.act-del-btn');
+      if (!delBtn) return;
+      const itemId = delBtn.dataset.deleteId;
+      if (!confirm('Are you sure you want to remove this item report?')) return;
+
+      delBtn.disabled = true;
+      try {
+        const res = await fetch(API_BASE + '/api/items/' + itemId, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Bearer ' + getAuthToken()
+          }
+        });
+
+        if (res.ok) {
+          cachedItems = cachedItems.filter(item => String(item.id) !== String(itemId));
+          saveStoredItems(cachedItems);
+          updateUserStats();
+          renderActivityItems(actFilter);
+          renderItems(currentFilter);
+          showToast('Item report removed from database.');
+        } else {
+          const errData = await res.json();
+          showToast(errData.error || 'Failed to remove item report.');
+        }
+      } catch (err) {
+        console.error('Delete item error:', err);
+        // Fallback local removal
+        cachedItems = cachedItems.filter(item => String(item.id) !== String(itemId));
+        saveStoredItems(cachedItems);
+        updateUserStats();
+        renderActivityItems(actFilter);
+        renderItems(currentFilter);
+        showToast('Item report removed.');
+      }
+    });
+
+    // Footer Navigation & Support Desk Listeners
+    document.querySelectorAll('.footer-open-lost').forEach(btn => {
+      btn.addEventListener('click', () => openModal('lost'));
+    });
+    document.querySelectorAll('.footer-open-found').forEach(btn => {
+      btn.addEventListener('click', () => openModal('found'));
+    });
+    document.querySelectorAll('.footer-open-profile').forEach(btn => {
+      btn.addEventListener('click', () => openActivityModal('all'));
+    });
+    const contactSupportBtn = document.querySelector('#btn-contact-support');
+    if (contactSupportBtn) {
+      contactSupportBtn.addEventListener('click', () => {
+        showToast('Campus Helpdesk: Call ext. 4040 or email security@campus.edu');
+      });
+    }
+
+    // Initial render of registered items
+    renderItems('all');
+    updateUserStats();
+    loadItemsFromServer();
+
+    // Twinkling Starfield Animation
+    (function initStarfield() {
+      const canvas = document.getElementById('starfield');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const starCount = Math.floor((window.innerWidth * window.innerHeight) / 3000);
+      const stars = [];
+      const colors = ['255, 255, 255', '224, 242, 254', '254, 240, 138', '216, 180, 254', '186, 230, 253'];
+
+      for (let i = 0; i < starCount; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.5 + 0.5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          baseAlpha: Math.random() * 0.4 + 0.3,
+          twinkleSpeed: Math.random() * 0.035 + 0.01,
+          phase: Math.random() * Math.PI * 2,
+          driftX: (Math.random() - 0.5) * 0.08,
+          driftY: (Math.random() - 0.5) * 0.08
+        });
+      }
+
+      let shootingStars = [];
+      function maybeCreateShootingStar() {
+        if (Math.random() < 0.018 && shootingStars.length < 2) {
+          shootingStars.push({
+            x: Math.random() * width * 0.85,
+            y: Math.random() * height * 0.4,
+            length: Math.random() * 80 + 50,
+            speed: Math.random() * 9 + 11,
+            angle: Math.PI / 4 + (Math.random() - 0.5) * 0.25,
+            opacity: 1,
+            decay: Math.random() * 0.025 + 0.015
+          });
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let star of stars) {
+          star.phase += star.twinkleSpeed;
+          const currentAlpha = Math.max(0.1, Math.min(1, star.baseAlpha + Math.sin(star.phase) * 0.45));
+          
+          star.x += star.driftX;
+          star.y += star.driftY;
+          if (star.x < 0) star.x = width;
+          if (star.x > width) star.x = 0;
+          if (star.y < 0) star.y = height;
+          if (star.y > height) star.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${star.color}, ${currentAlpha})`;
+          if (star.radius > 1.2) {
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = `rgba(${star.color}, 0.9)`;
+          }
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        maybeCreateShootingStar();
+        for (let i = shootingStars.length - 1; i >= 0; i--) {
+          const s = shootingStars[i];
+          const tailX = s.x - Math.cos(s.angle) * s.length;
+          const tailY = s.y - Math.sin(s.angle) * s.length;
+
+          const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
+          grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+          grad.addColorStop(1, `rgba(255, 255, 255, ${s.opacity})`);
+
+          ctx.beginPath();
+          ctx.moveTo(tailX, tailY);
+          ctx.lineTo(s.x, s.y);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1.8;
+          ctx.stroke();
+
+          s.x += Math.cos(s.angle) * s.speed;
+          s.y += Math.sin(s.angle) * s.speed;
+          s.opacity -= s.decay;
+
+          if (s.opacity <= 0 || s.x > width || s.y > height) {
+            shootingStars.splice(i, 1);
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+  </script>
+</body>
+</html>
